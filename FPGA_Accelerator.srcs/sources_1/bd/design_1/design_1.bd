@@ -1,0 +1,463 @@
+{
+  "design": {
+    "design_info": {
+      "boundary_crc": "0xB55CB81A905F0295",
+      "device": "xc7s25csga324-1",
+      "gen_directory": "../../../../FPGA_Accelerator.gen/sources_1/bd/design_1",
+      "name": "design_1",
+      "rev_ctrl_bd_flag": "RevCtrlBdOff",
+      "synth_flow_mode": "Hierarchical",
+      "tool_version": "2025.1"
+    },
+    "design_tree": {
+      "xfft_0": "",
+      "ilconcat_0": "",
+      "ilconstant_0": "",
+      "ilslice_0": "",
+      "ilslice_1": "",
+      "mult_gen_0": "",
+      "mult_gen_1": "",
+      "c_addsub_0": "",
+      "complex_signal_gener_0": "",
+      "clk_wiz": ""
+    },
+    "ports": {
+      "ABS_FFT": {
+        "type": "data",
+        "direction": "O",
+        "left": "31",
+        "right": "0"
+      },
+      "FFT_Tlast": {
+        "direction": "O"
+      },
+      "FFT_Tvalid": {
+        "direction": "O"
+      },
+      "real_input": {
+        "direction": "O",
+        "left": "15",
+        "right": "0"
+      },
+      "ddr_clock": {
+        "type": "clk",
+        "direction": "I",
+        "parameters": {
+          "FREQ_HZ": {
+            "value": "100000000"
+          },
+          "PHASE": {
+            "value": "0.0"
+          }
+        }
+      }
+    },
+    "components": {
+      "xfft_0": {
+        "vlnv": "xilinx.com:ip:xfft:9.1",
+        "ip_revision": "14",
+        "xci_name": "design_1_xfft_0_0",
+        "xci_path": "ip\\design_1_xfft_0_0\\design_1_xfft_0_0.xci",
+        "inst_hier_path": "xfft_0",
+        "has_run_ip_tcl": "true",
+        "parameters": {
+          "butterfly_type": {
+            "value": "use_luts"
+          },
+          "data_format": {
+            "value": "fixed_point"
+          },
+          "implementation_options": {
+            "value": "automatically_select"
+          },
+          "input_width": {
+            "value": "16"
+          },
+          "number_of_stages_using_block_ram_for_data_and_phase_factors": {
+            "value": "4"
+          },
+          "output_ordering": {
+            "value": "natural_order"
+          },
+          "phase_factor_width": {
+            "value": "16"
+          },
+          "run_time_configurable_transform_length": {
+            "value": "false"
+          },
+          "super_sample_rates": {
+            "value": "1"
+          },
+          "target_clock_frequency": {
+            "value": "100"
+          },
+          "target_data_throughput": {
+            "value": "100"
+          },
+          "transform_length": {
+            "value": "2048"
+          }
+        }
+      },
+      "ilconcat_0": {
+        "vlnv": "xilinx.com:inline_hdl:ilconcat:1.0",
+        "parameters": {
+          "IN0_WIDTH": {
+            "value": "16",
+            "value_src": "propagated",
+            "value_mode": "auto"
+          },
+          "IN1_WIDTH": {
+            "value": "16",
+            "value_src": "propagated",
+            "value_mode": "auto"
+          }
+        }
+      },
+      "ilconstant_0": {
+        "vlnv": "xilinx.com:inline_hdl:ilconstant:1.0"
+      },
+      "ilslice_0": {
+        "vlnv": "xilinx.com:inline_hdl:ilslice:1.0",
+        "parameters": {
+          "DIN_FROM": {
+            "value": "31"
+          },
+          "DIN_TO": {
+            "value": "16"
+          }
+        }
+      },
+      "ilslice_1": {
+        "vlnv": "xilinx.com:inline_hdl:ilslice:1.0",
+        "parameters": {
+          "DIN_FROM": {
+            "value": "15"
+          }
+        }
+      },
+      "mult_gen_0": {
+        "vlnv": "xilinx.com:ip:mult_gen:12.0",
+        "ip_revision": "23",
+        "xci_name": "design_1_mult_gen_0_0",
+        "xci_path": "ip\\design_1_mult_gen_0_0\\design_1_mult_gen_0_0.xci",
+        "inst_hier_path": "mult_gen_0",
+        "has_run_ip_tcl": "true",
+        "parameters": {
+          "PortAType": {
+            "value": "Signed"
+          },
+          "PortAWidth": {
+            "value": "16"
+          },
+          "PortBType": {
+            "value": "Signed"
+          },
+          "PortBWidth": {
+            "value": "16"
+          }
+        }
+      },
+      "mult_gen_1": {
+        "vlnv": "xilinx.com:ip:mult_gen:12.0",
+        "ip_revision": "23",
+        "xci_name": "design_1_mult_gen_0_1",
+        "xci_path": "ip\\design_1_mult_gen_0_1\\design_1_mult_gen_0_1.xci",
+        "inst_hier_path": "mult_gen_1",
+        "has_run_ip_tcl": "true",
+        "parameters": {
+          "PortAType": {
+            "value": "Signed"
+          },
+          "PortAWidth": {
+            "value": "16"
+          },
+          "PortBType": {
+            "value": "Signed"
+          },
+          "PortBWidth": {
+            "value": "16"
+          }
+        }
+      },
+      "c_addsub_0": {
+        "vlnv": "xilinx.com:ip:c_addsub:12.0",
+        "ip_revision": "20",
+        "xci_name": "design_1_c_addsub_0_0",
+        "xci_path": "ip\\design_1_c_addsub_0_0\\design_1_c_addsub_0_0.xci",
+        "inst_hier_path": "c_addsub_0",
+        "has_run_ip_tcl": "true",
+        "parameters": {
+          "A_Type": {
+            "value": "Signed"
+          },
+          "A_Width": {
+            "value": "32"
+          },
+          "B_Type": {
+            "value": "Signed"
+          },
+          "B_Value": {
+            "value": "00000000000000000000000000000000"
+          },
+          "B_Width": {
+            "value": "32"
+          },
+          "Latency": {
+            "value": "1"
+          },
+          "Out_Width": {
+            "value": "32"
+          }
+        }
+      },
+      "complex_signal_gener_0": {
+        "vlnv": "xilinx.com:module_ref:complex_signal_generator:1.0",
+        "ip_revision": "1",
+        "xci_name": "design_1_complex_signal_gener_0_1",
+        "xci_path": "ip\\design_1_complex_signal_gener_0_1\\design_1_complex_signal_gener_0_1.xci",
+        "inst_hier_path": "complex_signal_gener_0",
+        "has_run_ip_tcl": "true",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "complex_signal_generator",
+          "boundary_crc": "0x0"
+        },
+        "interface_ports": {
+          "interface_axis": {
+            "mode": "Master",
+            "vlnv_bus_definition": "xilinx.com:interface:axis:1.0",
+            "vlnv": "xilinx.com:interface:axis_rtl:1.0",
+            "parameters": {
+              "TDATA_NUM_BYTES": {
+                "value": "0",
+                "value_src": "constant"
+              },
+              "TDEST_WIDTH": {
+                "value": "0",
+                "value_src": "constant"
+              },
+              "TID_WIDTH": {
+                "value": "0",
+                "value_src": "constant"
+              },
+              "TUSER_WIDTH": {
+                "value": "0",
+                "value_src": "constant"
+              },
+              "HAS_TREADY": {
+                "value": "0",
+                "value_src": "constant"
+              },
+              "HAS_TSTRB": {
+                "value": "0",
+                "value_src": "constant"
+              },
+              "HAS_TKEEP": {
+                "value": "0",
+                "value_src": "constant"
+              },
+              "HAS_TLAST": {
+                "value": "1",
+                "value_src": "constant"
+              },
+              "FREQ_HZ": {
+                "value": "100000000",
+                "value_src": "user_prop"
+              },
+              "CLK_DOMAIN": {
+                "value": "design_1_sim_clk_gen_0_2_clk",
+                "value_src": "default_prop"
+              }
+            },
+            "port_maps": {
+              "TLAST": {
+                "physical_name": "tlast",
+                "direction": "O"
+              },
+              "TVALID": {
+                "physical_name": "tvalid",
+                "direction": "O"
+              }
+            }
+          }
+        },
+        "ports": {
+          "clk": {
+            "type": "clk",
+            "direction": "I",
+            "parameters": {
+              "ASSOCIATED_BUSIF": {
+                "value": "interface_axis",
+                "value_src": "constant"
+              },
+              "ASSOCIATED_RESET": {
+                "value": "reset",
+                "value_src": "constant"
+              },
+              "FREQ_HZ": {
+                "value": "100000000",
+                "value_src": "user_prop"
+              },
+              "CLK_DOMAIN": {
+                "value": "design_1_sim_clk_gen_0_2_clk",
+                "value_src": "default_prop"
+              }
+            }
+          },
+          "reset": {
+            "type": "rst",
+            "direction": "I",
+            "parameters": {
+              "POLARITY": {
+                "value": "ACTIVE_LOW",
+                "value_src": "user_prop"
+              }
+            }
+          },
+          "real_out": {
+            "direction": "O",
+            "left": "15",
+            "right": "0"
+          },
+          "imagery_out": {
+            "direction": "O",
+            "left": "15",
+            "right": "0"
+          }
+        }
+      },
+      "clk_wiz": {
+        "vlnv": "xilinx.com:ip:clk_wiz:6.0",
+        "ip_revision": "16",
+        "xci_name": "design_1_clk_wiz_0",
+        "xci_path": "ip\\design_1_clk_wiz_0\\design_1_clk_wiz_0.xci",
+        "inst_hier_path": "clk_wiz",
+        "has_run_ip_tcl": "true",
+        "parameters": {
+          "CLKOUT1_REQUESTED_OUT_FREQ": {
+            "value": "100.0"
+          },
+          "CLK_IN1_BOARD_INTERFACE": {
+            "value": "ddr_clock"
+          },
+          "USE_BOARD_FLOW": {
+            "value": "true"
+          }
+        }
+      }
+    },
+    "nets": {
+      "Net": {
+        "ports": [
+          "clk_wiz/reset",
+          "complex_signal_gener_0/reset"
+        ]
+      },
+      "c_addsub_0_S": {
+        "ports": [
+          "c_addsub_0/S",
+          "ABS_FFT"
+        ]
+      },
+      "complex_signal_gener_0_imagery_out": {
+        "ports": [
+          "complex_signal_gener_0/imagery_out",
+          "ilconcat_0/In0"
+        ]
+      },
+      "complex_signal_gener_0_real_out": {
+        "ports": [
+          "complex_signal_gener_0/real_out",
+          "ilconcat_0/In1",
+          "real_input"
+        ]
+      },
+      "complex_signal_gener_0_tlast": {
+        "ports": [
+          "complex_signal_gener_0/tlast",
+          "xfft_0/s_axis_data_tlast"
+        ]
+      },
+      "complex_signal_gener_0_tvalid": {
+        "ports": [
+          "complex_signal_gener_0/tvalid",
+          "xfft_0/s_axis_data_tvalid"
+        ]
+      },
+      "ddr_clock_1": {
+        "ports": [
+          "ddr_clock",
+          "clk_wiz/clk_in1"
+        ]
+      },
+      "ilconcat_0_dout": {
+        "ports": [
+          "ilconcat_0/dout",
+          "xfft_0/s_axis_data_tdata"
+        ]
+      },
+      "ilconstant_0_dout": {
+        "ports": [
+          "ilconstant_0/dout",
+          "xfft_0/m_axis_data_tready"
+        ]
+      },
+      "ilslice_0_Dout": {
+        "ports": [
+          "ilslice_0/Dout",
+          "mult_gen_0/A",
+          "mult_gen_0/B"
+        ]
+      },
+      "ilslice_1_Dout": {
+        "ports": [
+          "ilslice_1/Dout",
+          "mult_gen_1/A",
+          "mult_gen_1/B"
+        ]
+      },
+      "mult_gen_0_P": {
+        "ports": [
+          "mult_gen_0/P",
+          "c_addsub_0/A"
+        ]
+      },
+      "mult_gen_1_P": {
+        "ports": [
+          "mult_gen_1/P",
+          "c_addsub_0/B"
+        ]
+      },
+      "sim_clk_gen_0_clk": {
+        "ports": [
+          "clk_wiz/clk_out1",
+          "xfft_0/aclk",
+          "mult_gen_0/CLK",
+          "mult_gen_1/CLK",
+          "c_addsub_0/CLK",
+          "complex_signal_gener_0/clk"
+        ]
+      },
+      "xfft_0_m_axis_data_tdata": {
+        "ports": [
+          "xfft_0/m_axis_data_tdata",
+          "ilslice_0/Din",
+          "ilslice_1/Din"
+        ]
+      },
+      "xfft_0_m_axis_data_tlast": {
+        "ports": [
+          "xfft_0/m_axis_data_tlast",
+          "FFT_Tlast"
+        ]
+      },
+      "xfft_0_m_axis_data_tvalid": {
+        "ports": [
+          "xfft_0/m_axis_data_tvalid",
+          "FFT_Tvalid"
+        ]
+      }
+    }
+  }
+}
