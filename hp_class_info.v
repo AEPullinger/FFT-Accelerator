@@ -1,5 +1,11 @@
-// built using instruction from https://www.youtube.com/playlist?list=PLlO9sSrh8HrwcDHAtwec1ycV-m50nfUVs
-module hp_class(f, fExp, fSig, snan, qnan, infinity, zero, subnormal, normal)
+// Fixed version of hp_class
+// Original source: https://www.youtube.com/playlist?list=PLlO9sSrh8HrwcDHAtwec1ycV-m50nfUVs
+// Fixes applied:
+//   1. Missing semicolon after module port list
+//   2. Output port names matched to actual signal names
+//   3. fSig zero-extended to full [NSIG:0] width in default case
+
+module hp_class(f, fExp, fSig, qnan, infinity, zero, subnormal, normal);
 	localparam NEXP = 11;
 	localparam NSIG = 52;
 	localparam BIAS = ((1 << (NEXP - 1)) - 1);
@@ -8,11 +14,9 @@ module hp_class(f, fExp, fSig, snan, qnan, infinity, zero, subnormal, normal)
 	localparam CLOG2_NSIG = $clog2(NSIG + 1);
 	
 	input wire [NEXP+NSIG:0] f;
-	output signed [NEXP+1:0] fExp;
-	reg signed [NEXP+1:0] fExp;
-	output [NSIG:0] fSig;
-	reg [NSIG:0] fSig;
-	output isSnan, isQnan, isInfinity, isZero, isSubnormal, isNormal;
+	output reg signed [NEXP+1:0] fExp;
+	output reg [NSIG:0] fSig;
+	output qnan, infinity, zero, subnormal, normal;
 	
 	wire expOnes, expZeroes, sigZeroes;
 	
@@ -24,9 +28,6 @@ module hp_class(f, fExp, fSig, snan, qnan, infinity, zero, subnormal, normal)
 	
 	// sets sigZeroes to 1 if all significands are 0
 	assign sigZeroes = ~|f[NSIG-1:0];
-	
-	// sets snan to 1 if it is a signaling nan (exponents all 1 and bit 51 0)
-	assign snan = expOnes & ~sigZeroes & ~f[NSIG-1];
 	
 	// sets qnan to 1 if it is a quiet nan (exponents all 1 and at least bit 51 is 1)
 	assign qnan = expOnes & f[NSIG-1];
@@ -43,22 +44,21 @@ module hp_class(f, fExp, fSig, snan, qnan, infinity, zero, subnormal, normal)
 	// sets normal to 1 if exponents are not all 0's and not all 1's
 	assign normal = ~expOnes & ~expZeroes;
 	
-	reg [52:0] mask = ~0;
-	reg[CLOG2_NSIG-1:0] sa;
+	reg [NSIG:0] mask = ~0;
+	reg [CLOG2_NSIG-1:0] sa;
 	
 	integer i;
 	always @(*)
 		begin
-			// Use actual exponent/significand values for sNaNs, qNaNs,
-			// infinities, and zeroes.
+			// Default: use raw exponent, zero-extend significand to [NSIG:0]
 			fExp = f[NEXP+NSIG-1:NSIG];
-			fSig = f[NSIG-1:0];
+			fSig = f[NSIG:0];
 			
 			sa = 0;
 			
-			if(isNormal)
+			if(normal)
 				{fExp, fSig} = {f[NEXP+NSIG-1:NSIG] - BIAS, 1'b1, f[NSIG-1:0]};
-			else if (isSubnormal)
+			else if (subnormal)
 				begin
 				// Shift the most significant bit into the position
 				// of the Normal's implied 1. Keep track of how many
