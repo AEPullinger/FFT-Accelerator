@@ -56,7 +56,6 @@ module fp64_fpu (
     fp64_adder u_adder (
         .a_data (a_data),
         .b_data (adder_b),
-        .rst    (rst),
         .result (add_result)
     );
 
